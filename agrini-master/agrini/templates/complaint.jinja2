@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <title>Login</title>
+  <body bgcolor="#FFFACD">
+
+  <form name="MY Form" action="/compl" method="post">
+  House_no<input type="text" id="flat_id" name="flat_id">
+  <br>
+  Title<input type="text" id="title" name="title">
+  <br>
+  </body>
+    <h2>Department</h2>
+       <fieldset>
+          <p>
+             <select id = "myList" name="department">
+               <option value = "Electrical">Electrical</option>
+               <option value = "Plumbing">Plumbing</option>
+               <option value = "Tiles">Tiles</option>
+               <option value = "Lift">Lift</option>
+               <option value = "Cleaning">Cleaning</option>
+               <option value = "Intercom">Intercom</option>
+               <option value = "Others">Others</option>
+             </select>
+          </p>
+       </fieldset>
+  		<br><br>
+		<center>
+		<b>Enter your complaints</b>
+		<tr><td>
+		<center>
+		<textarea name=issue rows=6 cols=35></textarea>
+		<input type=hidden name="issue_name" value=issue_name>
+		</input>
+		<tr><td>
+		<center>
+		<input type=submit name="button1" value=Submit>
+    <input type="button"  onclick="window.location.href='./choise';return false;" name="" value="Go Back" >
+		</input>
+
+    </form>
+</html>

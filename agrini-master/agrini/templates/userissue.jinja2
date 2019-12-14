@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+tr { background-color:#FFFACD; color:green; }
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+th {
+  background-color: gold;
+  color: green;
+  padding: 10px;
+  border: 1px solid black;
+  }
+  button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 1px;
+  cursor: pointer;
+}
+</style>
+<body bgcolor="#FFFACD">
+<table border="1">
+<tr>
+<th width=150 height=100 >Id</th>
+<th width=450>Time_created</th>
+<th width=350>Allocate_to</th>
+<th width=350>Title</th>
+<th width=450>Flat_id</th>
+<th width=450>Issue</th>
+<th width=440>Department</th>
+<th width=450>Complaint_status</th>
+<th width=450>Time_updated</th>
+<th width=450>Reply</th>
+<th width=450>Feedback</th>
+
+</tr>
+{% for item in project %}
+
+    <tr>
+<td width=150>{{item[0]}}      </td>
+<td  width=450>{{item[1]}}    </td>
+<td  width=350>{{item[2]}}    </td>
+<td  width=450>{{item[3]}}    </td>
+<td  width=450>{{item[4]}}    </td>
+<td  width=450>{{item[5]}}    </td>
+<td  width=450>{{item[6]}}    </td>
+<td  width=450>{{item[7]}}    </td>
+<td  width=450>{{item[8]}}    </td>
+<td  width=450>{{item[9]}}    </td>
+<td  width=450> <button type="submit" onclick="window.location.href='{{request.route_path('alloc')}}';return false;" >Feedback</button>    </td>
+
+
+
+
+
+  </tr>
+  {% endfor %}
+  </table>
+  <input type="button"  onclick="window.location.href='./choise';return false;" name="" value="Go Back" >
+
+</body>
+
+
+</html>

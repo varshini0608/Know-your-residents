@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+tr { background-color:#FFFACD; color:green; }
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+th {
+  background-color: gold;
+  color: green;
+  padding: 10px;
+  border: 1px solid black;
+  }
+  button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 1px;
+  cursor: pointer;
+}
+</style>
+<body bgcolor="#FFFACD">
+<table border="1">
+<tr>
+<th width=450>Flat_id</th>
+<th width=450>password</th>
+<th width=440>email_id</th>
+</tr>
+{% for item in project %}
+
+    <tr>
+<td width=150>{{item[0]}}      </td>
+<td  width=450>{{item[1]}}    </td>
+<td  width=350>{{item[2]}}    </td>
+  </tr>
+  {% endfor %}
+  </table>
+
+</body>
+
+
+</html>

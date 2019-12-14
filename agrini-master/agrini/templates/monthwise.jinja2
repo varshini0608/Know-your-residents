@@ -1,0 +1,60 @@
+<!DOCTYPE html> 
+<head> 
+</head> 
+  
+<body> 
+    <h1 style="color: black"  align="middle"> 
+        Know your residence
+    </h1> 
+    <style>
+	body{
+		background-color:#ffffff;
+	}
+#select1{
+align="middle";
+margin
+}
+   </style>
+            
+     
+<p style="color:black"  align="middle">
+        Select the month: 
+ <form action="/month">
+
+        <select id="select1"> 
+            <option value="" >January</option> 
+            <option value="February"name="month">February</option> 
+            <option value="March"name="month">March</option> 
+ <option value="April" name="month">April</option>
+<option value="May"name="month">May</option>
+<option value="June"name="month">June</option
+<option value="July"name="month">July</option>
+<option value="August"name="month">August</option>
+<option value="September"name="month">September</option>
+<option value="October"name="month">October</option>
+<option value="November"name="month">November</option>
+<option value="December"name="month">December</option>
+
+        </select> 
+    </p>  
+<input type="submit" align="middle" name="button1" value="submit" onclick="window.location.href='./issues';return false;">
+
+
+  
+ </form> 
+    <script type="text/javascript">
+function getOption() { 
+            selectElement = document.querySelector('#select1'); 
+                      
+            output =  
+              selectElement.options[selectElement.selectedIndex].value; 
+  
+            document.querySelector('.output').textContent = output; 
+       }
+	
+
+		</script> 
+
+</body> 
+  
+</html>                     

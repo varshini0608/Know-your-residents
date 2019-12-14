@@ -1,0 +1,5 @@
+      [paste.app_factory]
+      main = agrini:main
+      [console_scripts]
+      initialize_Agrini_db = agrini.scripts.initializedb:main
+      

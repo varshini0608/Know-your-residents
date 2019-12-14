@@ -1,0 +1,40 @@
+<html>
+  <title>Login</title>
+
+  <body bgcolor="#FFFACD">
+
+  <form name="MY Form" action="/alloc/{id}/{flat_id}" method="post">
+    issue_no<input type="text" id="id" name="id" value="{{id}}">
+    <br>
+  House_no<input type="text" id="flat_id" name="flat_id" value="{{flat_id}}">
+  <br>
+  Allocate To<input type="text" id="aloc_by" name="aloc_by">
+  <br>
+  </body>
+    <h2>Status</h2>
+       <fieldset>
+          <p>
+             <select id = "status" name="status">
+               <option value = "logged">Logged</option>
+               <option value = "assigned">Assigned</option>
+               <option value = "completed">Completed</option>
+             </select>
+          </p>
+       </fieldset>
+  		<br><br>
+
+        <h3>Reply to issue raiser</h3><center>
+  		<textarea name="replay" id="replay"  rows="5" cols="30" ></textarea>
+  		<tr><td>
+  		<center>
+		<input type=submit name="admin" value=Allocate>
+
+		</input>
+    <br>
+    <br>
+    <br>
+    <font size="4" color="green">{{error}}</font>
+    <br>
+
+    </form>
+</html>

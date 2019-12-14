@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+tr { background-color:#FFFACD; color:green; }
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+th {
+  background-color: gold;
+  color: green;
+  padding: 10px;
+  border: 1px solid black;
+  }
+  button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 1px;
+  cursor: pointer;
+}
+</style>
+<body bgcolor="#FFFACD">
+<table border="1">
+<tr>
+<th width=440>Department</th>
+<th width=450>Raised Complaints</th>
+<th width=450>Reviewed Complaints</th>
+<th width=450>Assigned Complaints</th>
+<th width=450>Completed Complaints</th>
+</tr>
+{% for i in dept_raise %}
+
+    <tr>
+      <td  width=450 align="center"><a href='{{request.route_path('status', dept_name=i[0])}}'>{{i[0]}}</a></td>
+      <td  width=450 align="center">{{i[1]}}</td>
+      <td  width=450 align="center">{{i[2]}}</td>
+      <td  width=450 align="center">{{i[3]}}</td>
+      <td  width=450 align="center">{{i[4]}}</td>
+  </tr>
+  {% endfor %}
+  </table>
+
+</body>
+
+
+</html>

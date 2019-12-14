@@ -1,0 +1,740 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.6.13
+-- Dumped by pg_dump version 9.6.13
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: auth_master; Type: TABLE; Schema: public; Owner: itp
+--
+
+CREATE TABLE public.auth_master (
+    auth_id text NOT NULL,
+    pwd text,
+    user_role integer
+);
+
+
+ALTER TABLE public.auth_master OWNER TO itp;
+
+--
+-- Name: complaint_status; Type: TABLE; Schema: public; Owner: itp
+--
+
+CREATE TABLE public.complaint_status (
+    issue_id integer NOT NULL,
+    time_created timestamp without time zone DEFAULT now(),
+    allocate_by text,
+    title text,
+    issue text,
+    flat_id text,
+    dept_id integer,
+    complaint_status text,
+    time_viewed timestamp without time zone,
+    time_alloc timestamp without time zone,
+    time_completed timestamp without time zone,
+    reply text
+);
+
+
+ALTER TABLE public.complaint_status OWNER TO itp;
+
+--
+-- Name: complaint_status_issue_id_seq; Type: SEQUENCE; Schema: public; Owner: itp
+--
+
+CREATE SEQUENCE public.complaint_status_issue_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.complaint_status_issue_id_seq OWNER TO itp;
+
+--
+-- Name: complaint_status_issue_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: itp
+--
+
+ALTER SEQUENCE public.complaint_status_issue_id_seq OWNED BY public.complaint_status.issue_id;
+
+
+--
+-- Name: dept_master; Type: TABLE; Schema: public; Owner: itp
+--
+
+CREATE TABLE public.dept_master (
+    dept_id integer NOT NULL,
+    dept_name text,
+    visible boolean
+);
+
+
+ALTER TABLE public.dept_master OWNER TO itp;
+
+--
+-- Name: dept_master_dept_id_seq; Type: SEQUENCE; Schema: public; Owner: itp
+--
+
+CREATE SEQUENCE public.dept_master_dept_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.dept_master_dept_id_seq OWNER TO itp;
+
+--
+-- Name: dept_master_dept_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: itp
+--
+
+ALTER SEQUENCE public.dept_master_dept_id_seq OWNED BY public.dept_master.dept_id;
+
+
+--
+-- Name: models; Type: TABLE; Schema: public; Owner: itp
+--
+
+CREATE TABLE public.models (
+    id integer NOT NULL,
+    name text,
+    value integer
+);
+
+
+ALTER TABLE public.models OWNER TO itp;
+
+--
+-- Name: models_id_seq; Type: SEQUENCE; Schema: public; Owner: itp
+--
+
+CREATE SEQUENCE public.models_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.models_id_seq OWNER TO itp;
+
+--
+-- Name: models_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: itp
+--
+
+ALTER SEQUENCE public.models_id_seq OWNED BY public.models.id;
+
+
+--
+-- Name: user_auth; Type: TABLE; Schema: public; Owner: itp
+--
+
+CREATE TABLE public.user_auth (
+    flat_id text NOT NULL,
+    pwd text,
+    email_id text
+);
+
+
+ALTER TABLE public.user_auth OWNER TO itp;
+
+--
+-- Name: complaint_status issue_id; Type: DEFAULT; Schema: public; Owner: itp
+--
+
+ALTER TABLE ONLY public.complaint_status ALTER COLUMN issue_id SET DEFAULT nextval('public.complaint_status_issue_id_seq'::regclass);
+
+
+--
+-- Name: dept_master dept_id; Type: DEFAULT; Schema: public; Owner: itp
+--
+
+ALTER TABLE ONLY public.dept_master ALTER COLUMN dept_id SET DEFAULT nextval('public.dept_master_dept_id_seq'::regclass);
+
+
+--
+-- Name: models id; Type: DEFAULT; Schema: public; Owner: itp
+--
+
+ALTER TABLE ONLY public.models ALTER COLUMN id SET DEFAULT nextval('public.models_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_master; Type: TABLE DATA; Schema: public; Owner: itp
+--
+
+COPY public.auth_master (auth_id, pwd, user_role) FROM stdin;
+\.
+
+
+--
+-- Data for Name: complaint_status; Type: TABLE DATA; Schema: public; Owner: itp
+--
+
+COPY public.complaint_status (issue_id, time_created, allocate_by, title, issue, flat_id, dept_id, complaint_status, time_viewed, time_alloc, time_completed, reply) FROM stdin;
+\.
+
+
+--
+-- Name: complaint_status_issue_id_seq; Type: SEQUENCE SET; Schema: public; Owner: itp
+--
+
+SELECT pg_catalog.setval('public.complaint_status_issue_id_seq', 35, true);
+
+
+--
+-- Data for Name: dept_master; Type: TABLE DATA; Schema: public; Owner: itp
+--
+
+COPY public.dept_master (dept_id, dept_name, visible) FROM stdin;
+1	Electrical	t
+2	Plumbling	t
+3	Tiles	t
+4	Lift	t
+5	Floor	t
+6	Cleaning	t
+7	Intercom	t
+8	Others	t
+\.
+
+
+--
+-- Name: dept_master_dept_id_seq; Type: SEQUENCE SET; Schema: public; Owner: itp
+--
+
+SELECT pg_catalog.setval('public.dept_master_dept_id_seq', 7, true);
+
+
+--
+-- Data for Name: models; Type: TABLE DATA; Schema: public; Owner: itp
+--
+
+COPY public.models (id, name, value) FROM stdin;
+1	one	1
+2	one	1
+3	one	1
+4	one	1
+5	one	1
+\.
+
+
+--
+-- Name: models_id_seq; Type: SEQUENCE SET; Schema: public; Owner: itp
+--
+
+SELECT pg_catalog.setval('public.models_id_seq', 5, true);
+
+
+--
+-- Data for Name: user_auth; Type: TABLE DATA; Schema: public; Owner: itp
+--
+
+COPY public.user_auth (flat_id, pwd, email_id) FROM stdin;
+test3	lGiHum	NA
+dhanya-NG02	q5HcUg	NA
+dhanya-NG04	Ldji25	NA
+dhanya-NF01	qwE0aX	NA
+dhanya-NF02	GxyfeF	NA
+dhanya-F03	p3BCwC	NA
+dhanya-NS01	69Igmv	NA
+dhanya-NS02	sIvTJa	NA
+dhanya-NS03	UPlUth	NA
+dhanya-NS04	leM9GT	NA
+dhanya-NT02	dOqXjz	NA
+dhanya-NT03	P9QMw2	NA
+dhanya-NT01	EYCGDb	NA
+dhanya-NT04	aHwYhX	NA
+dhanya-OG01	MloYuI	NA
+dhanya-OG04	zFRL5P	NA
+dhanya-OF02	rrYPWN	NA
+dhanya-OF03	O6a6D6	NA
+dhanya-OS03	XZ89YF	NA
+dhanya-OS04	w7XBM8	NA
+dhanya-OT02	HlCw45	NA
+dhanya-OT01	hhtyfZ	NA
+dhanya-OT04	Qhvdvp	NA
+dhanya-PG01	ioT7MM	NA
+dhanya-PG02	coGSqB	NA
+dhanya-PG03	SFpgQ0	NA
+dhanya-PG04	fW3PBd	NA
+dhanya-PS01	m727rw	NA
+dhanya-PT04	ypAdob	NA
+dhanya-QG06	3l7ADy	NA
+dhanya-QF01	unUgJy	NA
+dhanya-QF05	zyKaI4	NA
+dhanya-QF06	aQH0DF	NA
+dhanya-QS01	FsD6dF	NA
+dhanya-QS02	7UyMCM	NA
+dhanya-QS06	Ss8Dcu	NA
+dhanya-QT03	DoE1An	NA
+dhanya-QG05	ZuAftW	NA
+dhanya-QG02	I5ve46	NA
+dhanya-QG01	JiSIAY	NA
+dhanya-PT03	apY1AX	NA
+dhanya-PT02	WbE5JE	NA
+dhanya-PS04	SJO6oA	NA
+dhanya-PS03	8whrXU	NA
+dhanya-PS02	oqFke5	NA
+dhanya-PF02	fPBZae	NA
+dhanya-NG01	RBXh1J	NA
+dhanya-MT03	4mmhQm	NA
+dhanya-MT02	dpuy1c	NA
+dhanya-MT01	ZTf8vG	NA
+dhanya-QF04	zEtkO8	NA
+dhanya-QF03	4HC2ge	NA
+dhanya-QF02	hZ8JVe	NA
+dhanya-PT01	x8fwIX	NA
+dhanya-PF04	ovbM30	NA
+dhanya-QT06	g0BpGW	NA
+dhanya-QT04	sOkqUD	NA
+dhanya-QT02	vvzjak	NA
+dhanya-QT01	yK56tV	NA
+dhanya-MS04	dyH9dw	NA
+dhanya-MS01	SPnpaK	NA
+dhanya-MF04	Aj3nVm	NA
+dhanya-MF03	H4AwTf	NA
+dhanya-MF02	ZPRNqn	NA
+dhanya-MF01	W96YUo	NA
+dhanya-MG04	xeHnNU	NA
+dhanya-MG03	TI7eti	NA
+dhanya-MG02	hZ39QW	NA
+dhanya-LT03	pgkVB0	NA
+dhanya-LT04	W8yIWR	NA
+dhanya-LT02	MUraLf	NA
+dhanya-LT01	JNxk5z	NA
+dhanya-LS04	Twyae6	NA
+dhanya-LS03	MiYlSv	NA
+dhanya-LS02	eQsW5m	NA
+dhanya-LS01	cidlpV	NA
+dhanya-PF01	ttubsn	NA
+dhanya-LF03	aFHOiB	NA
+dhanya-LF02	gaaiq6	NA
+dhanya-LG04	qkzZc1	NA
+dhanya-LG03	5HRmAc	NA
+dhanya-KT04	J0NYGr	NA
+dhanya-KT02	uLXwIU	NA
+dhanya-KT01	t152VX	NA
+dhanya-KS03	zFMTdV	NA
+dhanya-KS02	29ABwI	NA
+dhanya-KS01	4ZXK0L	NA
+dhanya-KT03	nNhFp8	NA
+dhanya-KF04	eNPh9t	NA
+dhanya-KF03	Yp2YO9	NA
+dhanya-KF02	jejTIH	NA
+dhanya-KG02	AjrHkt	NA
+dhanya-KG01	pgrvbh	NA
+dhanya-JT01	EKgcc6	NA
+dhanya-JT04	Z5Avf8	NA
+dhanya-JT03	NNLd9N	NA
+dhanya-JT02	lkHLda	NA
+dhanya-JS03	OF7HVR	NA
+dhanya-JS04	XiIxbz	NA
+dhanya-JF03	ebrWHv	NA
+dhanya-JF02	BGcUWN	NA
+dhanya-IG04	18w4YI	NA
+dhanya-IG02	m87d7w	NA
+dhanya-JG01	LaXxyT	NA
+dhanya-IT01	jokm2p	NA
+dhanya-IT04	TOTzUp	NA
+dhanya-IT03	zN8AlW	NA
+dhanya-IT02	UvqceG	NA
+dhanya-IS03	PvUCWq	NA
+dhanya-IS02	VEdAhA	NA
+dhanya-IF04	4ZRmSs	NA
+dhanya-IF03	59tWJW	NA
+dhanya-IF01	kNVEqK	NA
+dhanya-TG03	WdmHzb	NA
+dhanya-HT01	WL230r	NA
+dhanya-HT04	r296Zq	NA
+dhanya-HT03	Jigg2X	NA
+dhanya-HT02	ZYQzOl	NA
+dhanya-HS04	VewHer	NA
+dhanya-HS03	uwhW2W	NA
+dhanya-HS02	gwvf4B	NA
+dhanya-HF03	eq89N7	NA
+dhanya-HF02	YUYzWr	NA
+dhanya-HF01	ItJMCD	NA
+dhanya-HG04	kPei8O	NA
+dhanya-HG02	rvqdAg	NA
+dhanya-GT06	iilvdP	NA
+dhanya-GT04	PQEM7U	NA
+dhanya-GT03	BFckwc	NA
+dhanya-GT01	heeIpC	NA
+dhanya-GS06	ZG4tTl	NA
+dhanya-GT05	NBe01L	NA
+dhanya-GS05	Gusu4f	NA
+dhanya-GS04	ryWVz1	NA
+dhanya-GS03	UXFDqU	NA
+dhanya-GS02	87lAFg	NA
+dhanya-GF06	EWsNIu	NA
+dhanya-GF03	63X5sM	NA
+test1	riyas123	test1
+test2	riyas	test1
+dhanya-OT03	test123	mdriyazath16@gmail.com
+dhanya-GF04	LBPGET	NA
+dhanya-GF01	zR3rzk	NA
+dhanya-GG06	SV9nX4	NA
+dhanya-GG05	b47Csz	NA
+dhanya-GG04	BIxbWf	NA
+dhanya-GG03	Sx3UFT	NA
+dhanya-GG02	51xVce	NA
+dhanya-GG01	qEQeYP	NA
+dhanya-FT04	5yRXGi	NA
+dhanya-FT02	w02bWt	NA
+dhanya-FT01	BygT0h	NA
+dhanya-FS04	kggai4	NA
+dhanya-FS02	ktyTMe	NA
+dhanya-FS01	Z51xLx	NA
+dhanya-FF04	j5zwZn	NA
+dhanya-FF03	9rwqQk	NA
+dhanya-FF02	mtNSIX	NA
+dhanya-FF01	Hr6F7R	NA
+dhanya-FG04	1gGN6x	NA
+dhanya-FG03	htsjq2	NA
+dhanya-FG02	pNbbkT	NA
+dhanya-FG01	c58chf	NA
+dhanya-ET04	5KOvNL	NA
+dhanya-ET03	h0Uz5C	NA
+dhanya-ET02	2Renhe	NA
+dhanya-ET01	Nh2Wsn	NA
+dhanya-ES03	f8VA6i	NA
+dhanya-ES02	l3y1T1	NA
+dhanya-ES01	j5ErYu	NA
+dhanya-EF04	uYlTP9	NA
+dhanya-EF02	I6oucl	NA
+dhanya-EF01	asiZw9	NA
+dhanya-EG01	RqE7iC	NA
+dhanya-FS03	HNsWpI	NA
+dhanya-DT04	LZEKHm	NA
+dhanya-DT02	ZPqk5z	NA
+dhanya-DT01	MoMxSr	NA
+dhanya-DF04	9sZuRG	NA
+dhanya-DF03	d0s0JI	NA
+dhanya-DF02	lghpCR	NA
+dhanya-DF01	tUcF2W	NA
+dhanya-DG02	hyqmxI	NA
+dhanya-CT03	wM7bVe	NA
+dhanya-CT01	sYzAN1	NA
+dhanya-CT04	FWPj74	NA
+dhanya-CT02	u7yhfD	NA
+dhanya-CS04	KUryZU	NA
+dhanya-CS03	DK5z1P	NA
+dhanya-CS02	wehCoV	NA
+dhanya-CS01	cjSh5v	NA
+dhanya-CF01	IPtjt7	NA
+dhanya-BT04	FMif8j	NA
+dhanya-BT02	gzrJFK	NA
+dhanya-BT03	7Uckuk	NA
+dhanya-BT01	mj67hZ	NA
+dhanya-BS04	mAlXUX	NA
+dhanya-BS02	2uoaKs	NA
+dhanya-BS01	WT3LT7	NA
+dhanya-BF04	rX8nGv	NA
+dhanya-BF03	NX0S75	NA
+dhanya-BF02	ci9ki8	NA
+dhanya-BF01	ck1Wow	NA
+dhanya-BG02	M0euG5	NA
+dhanya-BG01	AhdjFW	NA
+dhanya-AT04	FcWGWJ	NA
+dhanya-AT03	iw0LHx	NA
+dhanya-AT02	rUNXIP	NA
+dhanya-AS03	Fi8Cvd	NA
+dhanya-AS02	cy6kZI	NA
+dhanya-AS01	I84SgW	NA
+dhanya-AF03	77C9I4	NA
+dhanya-AF04	gqxwO9	NA
+dhanya-AF02	KKQbuH	NA
+dhanya-AF01	xpbpu4	NA
+dhanya-AG03	0TXvXJ	NA
+dhanya-AG02	5SOaAl	NA
+anirudh-NT04	qXjvrR	NA
+anirudh-NT03	UFz6cp	NA
+anirudh-NT02	9bNbnl	NA
+anirudh-NT01	ujJCjf	NA
+anirudh-NS04	meiQtI	NA
+anirudh-NF04	HDsWMU	NA
+anirudh-NF03	PMmhtw	NA
+anirudh-NF02	VnLlz9	NA
+anirudh-NF01	T9ABZD	NA
+anirudh-NG02	f2QTVF	NA
+anirudh-NG01	TY3t7a	NA
+anirudh-MT01	mB51Yh	NA
+anirudh-MF03	09krMi	NA
+anirudh-MF01	GWYvRV	NA
+anirudh-MG04	cQBgr8	NA
+anirudh-MG03	eOZyXK	NA
+anirudh-MG01	LTDuzo	NA
+anirudh-MT04	ggyI8W	NA
+anirudh-MT03	ykE0sC	NA
+anirudh-MT02	J7iEwu	NA
+anirudh-MS03	z1NBaO	NA
+anirudh-MS02	Gjpl9h	NA
+anirudh-MS01	nyimEJ	NA
+anirudh-LS04	p9madZ	NA
+anirudh-LS03	Ck37b9	NA
+anirudh-LS02	c6ojwo	NA
+anirudh-LS01	Yw2kCe	NA
+anirudh-LF04	8emtXE	NA
+anirudh-LF02	Hl7MOv	NA
+anirudh-LF01	Z5DVdF	NA
+anirudh-LG04	oaHokY	NA
+anirudh-LG03	glx1rc	NA
+anirudh-LG02	5uYdwH	NA
+anirudh-LG01	UsX2Hf	NA
+anirudh-IG02	btwOcr	NA
+anirudh-IG01	YYn7wi	NA
+anirudh-HT04	0h6xqb	NA
+anirudh-HT02	TX38jo	NA
+anirudh-T02	kCbvGY	NA
+anirudh-HS04	ZQ3dT9	NA
+anirudh-HS03	3ikDOE	NA
+anirudh-KT02	FnG9XI	NA
+anirudh-KT04	5g6pwE	NA
+anirudh-KT03	LR3M3c	NA
+anirudh-KT01	BN1BBU	NA
+anirudh-KS04	eCTi8D	NA
+anirudh-KS03	8bsRWT	NA
+anirudh-KS02	kPVANf	NA
+anirudh-KS01	AJh1ou	NA
+anirudh-KF04	J7cSwk	NA
+anirudh-KF02	zMc3LV	NA
+anirudh-KF01	SbuUFD	NA
+anirudh-KG03	S0EnLL	NA
+anirudh-KG02	c9ZKoK	NA
+anirudh-KG01	iEUkSr	NA
+anirudh-JT04	tapB8p	NA
+anirudh-JT02	LbuY7g	NA
+anirudh-JT03	BubGa1	NA
+anirudh-JS04	h5zjdB	NA
+anirudh-JS02	QOXq4k	NA
+anirudh-JS03	pOKGhL	NA
+anirudh-JF04	l4ybtO	NA
+anirudh-JF03	oWXQcC	NA
+anirudh-JF02	ZbOaW0	NA
+anirudh-JG04	J1UReF	NA
+anirudh-IG05	atBDwP	NA
+anirudh-JG02	8Bxvu5	NA
+anirudh-JG01	lgkD3p	NA
+anirudh-JF01	RKmpR9	NA
+anirudh-IT02	aPZESE	NA
+anirudh-IT01	CwwDFU	NA
+anirudh-IT04	f21Ksm	NA
+anirudh-IT03	6NmryS	NA
+anirudh-IS04	zd8CBj	NA
+anirudh-IS03	mNkxys	NA
+anirudh-IS01	xH1nEE	NA
+anirudh-IF04	UM4qA6	NA
+anirudh-IF03	GfShru	NA
+anirudh-IF02	tiSexn	NA
+anirudh-LT01	mow9bB	NA
+anirudh-LT04	h6AC9b	NA
+anirudh-LT03	IkAqdG	NA
+anirudh-LT02	9zhaBw	NA
+anirudh-HS02	aUWQFN	NA
+anirudh-HG02	bPZbDw	NA
+anirudh-HF04	QG0Pui	NA
+anirudh-HF03	B3IIbj	NA
+anirudh-HF01	JAIb28	NA
+anirudh-HG03	GlcQQ4	NA
+anirudh-GT02	5s1UUG	NA
+anirudh-GT01	IQ3k5Z	NA
+anirudh-HG04	80dMTf	NA
+anirudh-HS01	zWzaxC	NA
+anirudh-HT01	Xz2Tg4	NA
+anirudh-HT03	6CKn8J	NA
+anirudh-GF03	eXfoTo	NA
+anirudh-GT03	rBcMiF	NA
+anirudh-GT04	oeXYwG	NA
+anirudh-GS04	1ZRPDm	NA
+anirudh-GS03	h0CBBP	NA
+anirudh-GS02	TRbFg5	NA
+anirudh-GS01	mnCjA8	NA
+anirudh-GF04	Jv2ArI	NA
+anirudh-GF02	bgsSib	NA
+anirudh-GF01	ygDPwm	NA
+anirudh-GG04	gEeQzz	NA
+anirudh-GG02	cCoztI	NA
+anirudh-GG01	KUtRy0	NA
+anirudh-FT03	OTtIed	NA
+anirudh-FT04	TSpeZi	NA
+anirudh-FT02	aGZbpN	NA
+anirudh-FT01	eUpmTQ	NA
+anirudh-FS04	uDP0wC	NA
+anirudh-FS03	QWmPY4	NA
+anirudh-FS02	vcetXz	NA
+anirudh-FS01	EwNZEd	NA
+anirudh-FF04	TtdLOW	NA
+anirudh-FF03	1dJF7P	NA
+anirudh-FF02	W3naqY	NA
+anirudh-FF01	w8pXdF	NA
+anirudh-FG04	V101je	NA
+anirudh-FG03	ljnZy6	NA
+anirudh-FG02	xvjw65	NA
+anirudh-FG01	bulv5T	NA
+anirudh-ET04	PFmeuW	NA
+anirudh-ET03	ksHMiQ	NA
+anirudh-ET02	LLkLAB	NA
+anirudh-ET01	dXtWWX	NA
+anirudh-ES04	BbUttC	NA
+anirudh-ES03	CIXhu6	NA
+anirudh-ES02	wzMQwy	NA
+anirudh-ES01	0I3ts6	NA
+anirudh-EF04	vxVd1A	NA
+anirudh-EF03	B8cSDB	NA
+anirudh-EF02	h8Zdyq	NA
+anirudh-EF01	Lp5nnF	NA
+anirudh-EG04	xx2H1t	NA
+anirudh-EG03	Zsopwh	NA
+anirudh-EG02	TcJ4t9	NA
+anirudh-EG01	eMkUzO	NA
+anirudh-DT01	4qnVG7	NA
+anirudh-DT04	c6F1Va	NA
+anirudh-DT03	jQFkpX	NA
+anirudh-DT02	c3rj9K	NA
+anirudh-DS04	fVMOo9	NA
+anirudh-DS03	cspsPB	NA
+anirudh-DS02	tsXd7F	NA
+anirudh-DS01	qwbhxh	NA
+anirudh-DF04	ZVkCgx	NA
+anirudh-DF03	dYBQCU	NA
+anirudh-DF02	INhyn4	NA
+anirudh-DG04	quXk2j	NA
+anirudh-DG02	folrkI	NA
+anirudh-DG01	wO76So	NA
+anirudh-CT03	SB4bsc	NA
+anirudh-CT04	pvMDdv	NA
+anirudh-CT02	dKhvso	NA
+anirudh-CT01	Qh0fDL	NA
+anirudh-CS03	VFLISJ	NA
+anirudh-CS02	LFSiT5	NA
+anirudh-CS01	TuBNf3	NA
+anirudh-CF04	yvqtJz	NA
+anirudh-CF03	EYsOWT	NA
+anirudh-CF02	cTLUr0	NA
+anirudh-CF01	ff1hXJ	NA
+anirudh-CG03	v4diRW	NA
+anirudh-CS04	6dIxfW	NA
+anirudh-CG02	lr49d9	NA
+anirudh-CG01	m9cetN	NA
+anirudh-BT04	RLsZjM	NA
+anirudh-BT03	IXYbNM	NA
+anirudh-BT02	YpW3fr	NA
+anirudh-BT01	QHtzQz	NA
+anirudh-BS04	VV6mdu	NA
+anirudh-BS03	gt0RmQ	NA
+anirudh-BS02	2NzWgh	NA
+anirudh-BS01	XHjRM8	NA
+anirudh-BF04	hN9ZY7	NA
+anirudh-BF02	pq9M0F	NA
+anirudh-BF01	29IGv1	NA
+anirudh-BG04	SbJ4qW	NA
+anirudh-BG03	zmcNYb	NA
+anirudh-BG02	YDZ0ir	NA
+anirudh-BG01	XJHfhI	NA
+anirudh-AT01	eYMCVD	NA
+anirudh-AT04	l8tdCz	NA
+anirudh-AT03	vbHVVZ	NA
+anirudh-AS03	TqaeN8	NA
+anirudh-AF04	CqPMMC	NA
+anirudh-AF02	FcsOG4	NA
+anirudh-AF01	SmvgC3	NA
+anirudh-F01	PEOcY1	NA
+anirudh-AG04	MuhwIS	NA
+anirudh-AG03	oIUziI	NA
+anirudh-AG01	C3uQqR	NA
+\.
+
+
+--
+-- Name: auth_master pk_auth_master; Type: CONSTRAINT; Schema: public; Owner: itp
+--
+
+ALTER TABLE ONLY public.auth_master
+    ADD CONSTRAINT pk_auth_master PRIMARY KEY (auth_id);
+
+
+--
+-- Name: complaint_status pk_complaint_status; Type: CONSTRAINT; Schema: public; Owner: itp
+--
+
+ALTER TABLE ONLY public.complaint_status
+    ADD CONSTRAINT pk_complaint_status PRIMARY KEY (issue_id);
+
+
+--
+-- Name: dept_master pk_dept_master; Type: CONSTRAINT; Schema: public; Owner: itp
+--
+
+ALTER TABLE ONLY public.dept_master
+    ADD CONSTRAINT pk_dept_master PRIMARY KEY (dept_id);
+
+
+--
+-- Name: models pk_models; Type: CONSTRAINT; Schema: public; Owner: itp
+--
+
+ALTER TABLE ONLY public.models
+    ADD CONSTRAINT pk_models PRIMARY KEY (id);
+
+
+--
+-- Name: user_auth pk_user_auth; Type: CONSTRAINT; Schema: public; Owner: itp
+--
+
+ALTER TABLE ONLY public.user_auth
+    ADD CONSTRAINT pk_user_auth PRIMARY KEY (flat_id);
+
+
+--
+-- Name: complaint_status fk_complaint_status_dept_id_dept_master; Type: FK CONSTRAINT; Schema: public; Owner: itp
+--
+
+ALTER TABLE ONLY public.complaint_status
+    ADD CONSTRAINT fk_complaint_status_dept_id_dept_master FOREIGN KEY (dept_id) REFERENCES public.dept_master(dept_id);
+
+
+--
+-- Name: complaint_status fk_complaint_status_flat_id_user_auth; Type: FK CONSTRAINT; Schema: public; Owner: itp
+--
+
+ALTER TABLE ONLY public.complaint_status
+    ADD CONSTRAINT fk_complaint_status_flat_id_user_auth FOREIGN KEY (flat_id) REFERENCES public.user_auth(flat_id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

@@ -1,0 +1,14 @@
+alter user "itp" with encrypted password 'sample'
+
+ALTER DATABASE itp_new OWNER TO itp;
+
+
+
+pip install -e .
+/etc/lib/post/96/main/.con nano -literm *
+pghba-ipv4 
+
+
+
+
+ANIRUDH-AF04 

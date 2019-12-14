@@ -1,0 +1,3 @@
+[run]
+source = agrini
+omit = agrini/test*

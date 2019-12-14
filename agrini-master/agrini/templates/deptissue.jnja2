@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title of the document</title>
+    <style>
+      table, th, td {
+      padding: 10px;
+      border: 3px solid black; 
+      border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <th>Month</th>
+<th>Flat id</th>
+        <th>Issues</th>
+     <tr>
+<td width="200" height="350" align="middle">
+
+</td>
+
+<td width="1000" height="350" align="top">
+
+</td>
+<td width="500" height="350" align="top">
+</td>
+</tr>
+    </table>
+
+  </body>
+</html>
